@@ -29,7 +29,7 @@ export default function Home() {
           <div className='w-full lg:w-80'>
             <p className='text-white text-xl mb-3'>Contact us</p>
             <input type="email" id="helper-text" aria-describedby="helper-text-explanation" className="mb-3 bg-blackgold border border-gold text-gold text-sm rounded-xl focus:ring-gold focus:border-gold block w-full p-2.5 " placeholder="Email"></input>
-            <textarea id="message" rows={5} className="block p-2.5 w-full text-sm text-gray-900 bg-blackgold rounded-lg border border-gold focus:ring-gold focus:border-gold" placeholder="Message"></textarea>
+            <textarea id="message" rows={5} className="block p-2.5 w-full text-sm text-gray-900 bg-blackgold rounded-lg border border-gold focus:ring-gold focus:border-gold text-gold" placeholder="Message"></textarea>
             <button type='button' className='bg-gold text-white block w-full mt-3 py-2 rounded-xl hover:bg-darkgold focus:bg-lightgold'>Send</button>
             <p className='text-gold mt-3'>In Collaboration With Azura Labs and Molka</p>
           </div>
