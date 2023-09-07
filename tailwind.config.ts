@@ -14,6 +14,13 @@ const config: Config = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
     },
+    colors: {
+      'blackgold': '#1B1B19',
+      'gold': '#BC9633',
+      'white': '#ffffff',
+      'darkgold': '#9e7b21',
+      'lightgold': '#806420'
+    }
   },
   plugins: [],
 }

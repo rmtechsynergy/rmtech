@@ -17,11 +17,18 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: #1B1B19;
+  background-image: url('/svgs/bg.svg');
+  background-repeat: no-repeat;
+  background-size: 120%;
+}
+
+@media (min-width: 1200px) {
+  body {
+    background: #161615;
+      background-image: url('/svgs/bg.svg');
+      background-repeat: no-repeat;
+      background-position: 0px -100px;
+      background-size: 65%;
+  }
 }
