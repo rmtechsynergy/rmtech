@@ -25,7 +25,7 @@ export default function Home() {
   }
 
   useEffect(() => {
-    setDisabled(email !== '' && message !== '');
+    setDisabled(email === '' || message === '');
   }, [email, message])
 
   return (
