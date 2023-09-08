@@ -11,16 +11,22 @@ export default function Home() {
   const [disabled, setDisabled] = useState(true);
   const [hide, setHide] = useState('hidden');
   const [isLoading, setIsLoading] = useState(false);
+  const [text, setText] = useState('');
 
   const handleSubmitEmail = async () => {
     setDisabled(true);
     setIsLoading(true);
     const res = await sendEmailSMTPServive(email, message);
     if (res.status == 200) {
-      setHide('block');
+      setText('Thank you for contacting us, we will promptly review it further.');
       setEmail('');
       setMessage('');
       setIsLoading(false);
+      setHide('block');
+    } else {
+      setText('Sorry, we are experiencing difficulties sending the message. Please ensure that the entered email and message are valid.');
+      setIsLoading(false);
+      setHide('block');
     }
   }
 
@@ -51,7 +57,7 @@ export default function Home() {
           </div>
           <div className='w-full lg:w-80 xl:w-96'>
             <div className={`border border-gold p-3 rounded-xl mb-3 ${hide}`}>
-              <p className="text-gold">Thank you for contacting us, we will promptly review it further.</p>
+              <p className="text-gold">{text}</p>
             </div>
             <p className='text-white text-xl mb-3'>Contact us</p>
             <input type="email" id="helper-text" aria-describedby="helper-text-explanation" className="mb-3 bg-blackgold border border-gold text-gold text-sm rounded-xl focus:ring-gold focus:border-gold block w-full p-2.5 " placeholder="Email" value={email} onChange={(e) => setEmail((e.target as HTMLInputElement).value)} required></input>

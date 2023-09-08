@@ -17,12 +17,16 @@ const sendEmailSendgridService = async (email: string, message: string) => {
 }
 
 const sendEmailSMTPServive = async (email: string, message: string) => {
-  const data = {
-    email,
-    message
+  try {
+    const data = {
+      email,
+      message
+    }
+    const res = await axios.post('/api/sendEmailSMTP', data);
+    return res;
+  } catch (err: any) {
+    return err;
   }
-  const res = await axios.post('/api/sendEmailSMTP', data);
-  return res;
 }
 
 export {
