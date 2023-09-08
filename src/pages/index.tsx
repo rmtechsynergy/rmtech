@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { Oxanium } from 'next/font/google'
-import { useState, type MouseEvent, type KeyboardEvent } from "react";
+import { useState, type MouseEvent, type KeyboardEvent, useEffect } from "react";
 import { sendEmailSMTPServive } from '@/services/email/send';
 
 const oxanium = Oxanium({ subsets: ['latin'] })
@@ -8,10 +8,25 @@ const oxanium = Oxanium({ subsets: ['latin'] })
 export default function Home() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [disabled, setDisabled] = useState(true);
+  const [hide, setHide] = useState('hidden');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmitEmail = async () => {
+    setDisabled(true);
+    setIsLoading(true);
     const res = await sendEmailSMTPServive(email, message);
+    if (res.status == 200) {
+      setHide('block');
+      setEmail('');
+      setMessage('');
+      setIsLoading(false);
+    }
   }
+
+  useEffect(() => {
+    setDisabled(email !== '' && message !== '');
+  }, [email, message])
 
   return (
     <main className={`pl-5 pt-16 pr-5 pb-0 lg:pl-16 lg:pt-16 lg:pr-16 lg:pb-5 ${oxanium.className} h-screen`}>
@@ -35,10 +50,17 @@ export default function Home() {
             <Image src='svgs/logo.svg' alt='Logo RMTech' width={250} height={125}></Image>
           </div>
           <div className='w-full lg:w-80 xl:w-96'>
+            <div className={`border border-gold p-3 rounded-xl mb-3 ${hide}`}>
+              <p className="text-gold">Thank you for contacting us, we will promptly review it further.</p>
+            </div>
             <p className='text-white text-xl mb-3'>Contact us</p>
-            <input type="email" id="helper-text" aria-describedby="helper-text-explanation" className="mb-3 bg-blackgold border border-gold text-gold text-sm rounded-xl focus:ring-gold focus:border-gold block w-full p-2.5 " placeholder="Email" onKeyUp={(e) => setEmail((e.target as HTMLInputElement).value)}></input>
-            <textarea id="message" rows={5} className="block p-2.5 w-full text-sm text-gray-900 bg-blackgold rounded-lg border border-gold focus:ring-gold focus:border-gold text-gold" placeholder="Message" onKeyUp={(e) => setMessage((e.target as HTMLInputElement).value)}></textarea>
-            <button type='button' className='bg-gold text-white block w-full mt-3 py-2 rounded-xl hover:bg-darkgold focus:bg-lightgold' onClick={handleSubmitEmail}>Send</button>
+            <input type="email" id="helper-text" aria-describedby="helper-text-explanation" className="mb-3 bg-blackgold border border-gold text-gold text-sm rounded-xl focus:ring-gold focus:border-gold block w-full p-2.5 " placeholder="Email" value={email} onChange={(e) => setEmail((e.target as HTMLInputElement).value)} required></input>
+            <textarea id="message" rows={5} className="block p-2.5 w-full text-sm text-gray-900 bg-blackgold rounded-lg border border-gold focus:ring-gold focus:border-gold text-gold" placeholder="Message" onChange={(e) => setMessage((e.target as HTMLTextAreaElement).value)} required>{message}</textarea>
+            <button type='button' className='cursor-pointer disabled:opacity-25 bg-gold text-white block w-full mt-3 py-2 rounded-xl hover:bg-darkgold focus:bg-lightgold' disabled={disabled} onClick={handleSubmitEmail}>
+              {isLoading
+                ? 'Sending...'
+                : 'Send'
+              }</button>
             <p className='text-gold mt-3 text-center'>In Collaboration With Azura Labs and Molca</p>
           </div>
         </div>
