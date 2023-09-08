@@ -17,7 +17,7 @@ const sendEmail = async (email: string, message: string): Promise<SendEmailRespo
   const response = await sgMail.send(config);
   console.log(response);
   const result: SendEmailResponse = {
-    status: 'ok',
+    status: 'success',
     message
   };
   return result;
