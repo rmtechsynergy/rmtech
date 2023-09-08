@@ -28,7 +28,8 @@ body {
     background: #161615;
       background-image: url('/svgs/bg.svg');
       background-repeat: no-repeat;
-      background-position: 0px -100px;
+      background-position: 0px -420px;
       background-size: 65%;
   }
 }
+
