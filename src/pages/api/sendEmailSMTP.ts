@@ -10,7 +10,7 @@ export default async function handler(
     await sendEmail({
       from: req.body.email,
       to: process.env.SMTP_TO_EMAIL as string,
-      subject: "Welcome to NextAPI",
+      subject: "New message from website visitor.",
       html: req.body.message,
     });
   
