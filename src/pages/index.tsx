@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { Oxanium } from 'next/font/google'
 import { useState, type MouseEvent, type KeyboardEvent } from "react";
-import { sendEmailSMTP } from '@/services/email/send';
+import { sendEmailSMTPServive } from '@/services/email/send';
 
 const oxanium = Oxanium({ subsets: ['latin'] })
 
@@ -10,8 +10,7 @@ export default function Home() {
   const [message, setMessage] = useState('');
 
   const handleSubmitEmail = async () => {
-    console.log(email, message);
-    void await sendEmailSMTP(email, message);
+    const res = await sendEmailSMTPServive(email, message);
   }
 
   return (
